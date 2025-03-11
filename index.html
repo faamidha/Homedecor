@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Decoration Suggestions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #ff66b2;
+            --primary-hover: #ff3385;
+            --bg-gradient: linear-gradient(135deg, #4b0082, #800080);
+            --text-color: white;
+            --error-color: #ff4444;
+            --success-color: #4CAF50;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            background: var(--bg-gradient);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #ff66b2, #ff99cc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .header-icons i, .language-toggle:hover {
+            font-size: 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .header-icons i:hover, .language-toggle:hover {
+            transform: scale(1.2);
+        }
+        .contact-info {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 30px;
+            background: white;
+            color: black;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        select, button {
+            padding: 12px;
+            margin: 15px auto;
+            width: 90%;
+            max-width: 400px;
+            font-size: 16px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            display: block;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+        select:focus, button:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 102, 178, 0.3);
+        }
+        button {
+            background: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        button:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        img {
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        .result {
+            display: none;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            margin-top: 20px;
+        }
+
+        /* Feedback Form */
+        .feedback-container {
+            position: fixed;
+            top: 50px;
+            right: -300px; /* Initially hidden */
+            width: 280px;
+            background: white;
+            color: black;
+            padding: 15px;
+            border-radius: 10px 0 0 10px;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+            transition: right 0.4s ease-in-out;
+        }
+
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .feedback-header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .close-btn {
+            cursor: pointer;
+            font-size: 18px;
+            color: red;
+        }
+
+        .feedback-container input,
+        .feedback-container textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .feedback-container button {
+            width: 100%;
+            padding: 10px;
+            background: #ff66b2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .feedback-container button:hover {
+            background: #ff3385;
+        }
+
+        /* Show form when active */
+        .feedback-container.active {
+            right: 0;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 id="homeDecorTitle" data-translate="homeDecorTitle">HomeDecor</h1>
+        <div class="header-icons">
+            <i class="fas fa-home" title="Home" onclick="goToHome()"></i>
+            <i class="fas fa-phone" title="Contact" onclick="toggleContactInfo()"></i>
+            <i class="fas fa-comment-dots" title="Feedback" onclick="toggleFeedbackForm()"></i>
+            <i class="fas fa-language" title="Toggle Language" onclick="toggleLanguage()"></i>
+        </div>
+        </div>
+        <div id="contactInfo" class="contact-info">
+           <p><strong id="phoneText">Phone:</strong> +91 98657XXXXX</p>
+           <p><strong id="emailText">Email:</strong> homedecor@gmail.com</p>
+        </div>
+    </div>
+    <div class="container">
+        <h2 id="findIdeaTitle" data-translate="findIdeaTitle">Find Your Home Decoration Idea</h2>
+        <label id="roomTypeLabel" data-translate="roomTypeLabel">Select Room Type:</label>
+        <select id="roomType" onchange="populateDimensions()">
+            <option value="Bedroom">Bedroom</option>
+            <option value="Hall">Hall</option>
+            <option value="Kitchen">Kitchen</option>
+        </select>
+        <label id="dimensionLabel" data-translate="dimensionLabel">Select Room Dimensions:</label>
+        <select id="dimension"></select>
+        <button id="getSuggestionBtn" onclick="findDecoration()" data-translate="getSuggestionBtn">Get Suggestion</button>
+        <button id="resetBtn" onclick="resetForm()" data-translate="resetBtn">Reset</button>
+        <div id="result"></div>
+
+
+        <div class="result" id="result"></div>
+    </div>
+    
+    <!-- Feedback Form -->
+    <div id="feedbackForm" class="feedback-container">
+        <div class="feedback-header">
+            <h3 id="feedbackTitle">Feedback</h3>
+            <span class="close-btn" onclick="toggleFeedbackForm()">✖</span>
+        </div>
+        <form onsubmit="handleSubmitFeedback(event)">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="message" placeholder="Your Feedback" required></textarea>
+            <button type="submit" id="submitBtn">Submit</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
